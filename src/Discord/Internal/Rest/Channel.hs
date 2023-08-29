@@ -159,14 +159,12 @@ instance Default MessageDetailedOpts where
                             }
 
 -- | Data constructor for `GetReactions` requests
-data ReactionTiming = BeforeReaction MessageId
-                    | AfterReaction MessageId
+data ReactionTiming = AfterReaction UserId
                     | LatestReaction
   deriving (Show, Read, Eq, Ord)
 
 reactionTimingToQuery :: ReactionTiming -> R.Option 'R.Https
 reactionTimingToQuery t = case t of
-  (BeforeReaction snow) -> "before" R.=: show snow
   (AfterReaction snow) -> "after"  R.=: show snow
   LatestReaction -> mempty
 
